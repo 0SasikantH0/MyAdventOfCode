@@ -9,6 +9,7 @@ void show();
 int main()
 {
     char cEachChar;
+    char closeBraceFromStack;
     printf("Enter sequence \n");
     stackSize = 98;
     scanf("%c",&cEachChar);
@@ -19,10 +20,58 @@ int main()
       }
       else
       {
+          closeBraceFromStack = pop();
+          switch(cEachChar)
+          {
+            case ']':
+            {
+              if(closeBraceFromStack == '[')
+                printf("properly closed\n");
+              else
+              {
+
+                  printf("not proper: ]\n");
+              }
+            }
+            break;
+            case '}':
+            {
+              if(closeBraceFromStack == '{')
+                printf("properly closed\n");
+              else
+              {
+
+                  printf("not proper: }\n");
+              }
+            }
+            break;
+            case ')':
+            {
+              if(closeBraceFromStack == '(')
+                printf("properly closed\n");
+              else
+              {
+
+                  printf("not proper: )\n");
+              }
+            }
+            break;
+            case '>':
+            {
+              if(closeBraceFromStack == '<')
+                printf("properly closed\n");
+              else
+              {
+                  printf("not proper: >\n");
+              }
+            }
+            break;
+          }
       }
+
       scanf("%c",&cEachChar);
     }
-    show();
+    //show();
     return 0;
 }
 
