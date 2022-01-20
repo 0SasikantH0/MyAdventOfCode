@@ -1,0 +1,11 @@
+Day 10, 2021
+
+If open brace add to stack
+
+Else if close brace
+    pop stack
+    if close brace matches
+        Continue
+    Else
+        Calculate points
+    
