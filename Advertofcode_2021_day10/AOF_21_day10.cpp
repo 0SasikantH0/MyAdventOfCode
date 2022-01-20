@@ -1,7 +1,8 @@
 #include<stdio.h>
 
 //Basic character stack DS
-char stack[100],stackSize,top=-1;
+char stack[1000];
+int stackSize,top=-1;
 void push(char openBrace);
 char pop();
 void show();
@@ -15,70 +16,90 @@ int main()
     int totalCount = 0;
     int point_curve = 3, point_square = 57, point_flower = 1197, point_greater = 25137;
 
+    bool mismatch = false;
+
     printf("Enter sequence \n");
-    stackSize = 98;
+    stackSize = 998;
 
     while(true)
     {
-        printf("\n");
+        printf(" new line\n");
         scanf("%c",&cEachChar);
-        while (cEachChar != '\n') {
-        if(cEachChar == '[' || cEachChar == '{' || cEachChar == '('|| cEachChar == '<')
+        mismatch = false;
+        top = -1;
+        while (cEachChar != '\n') 
         {
-            push(cEachChar);
-        }
-        else
-        {
-            closeBraceFromStack = pop();
-            switch(cEachChar)
+            if(!mismatch)
             {
-                case ']':
+                if(cEachChar == '[' || cEachChar == '{' || cEachChar == '('|| cEachChar == '<')
                 {
-                if(closeBraceFromStack == '[')
-                    printf("properly closed\n");
+                    push(cEachChar);
+                }
                 else
                 {
-                    printf("not proper: ]\n");
-                    totalCount += point_square;
+                    closeBraceFromStack = pop();
+                    switch(cEachChar)
+                    {
+                        case ']':
+                        {
+                            if(closeBraceFromStack == '[')
+                            {
+                                //printf("\nproperly closed\n");
+                            }
+                            else
+                            {
+                                printf("\nnot proper: ]\n");
+                                totalCount += point_square;
+                                mismatch = true;
+                            }
+                        }
+                        break;
+                        case '}':
+                        {
+                            if(closeBraceFromStack == '{')
+                            {
+                                //printf("\nproperly closed\n");
+                            }
+                            else
+                            {
+                                printf("\nnot proper: }\n");
+                                totalCount += point_flower;
+                                mismatch = true;
+                            }
+                        }
+                        break;
+                        case ')':
+                        {
+                            if(closeBraceFromStack == '(')
+                            {
+                                //printf("\nproperly closed\n");
+                            }
+                            else
+                            {
+                                printf("\nnot proper: )\n");
+                                totalCount += point_curve;
+                                mismatch = true;
+                            }
+                        }
+                        break;
+                        case '>':
+                        {
+                            if(closeBraceFromStack == '<')
+                            {
+                                //printf("\nproperly closed\n");
+                            }
+                            else
+                            {
+                                printf("\nnot proper: >\n");
+                                totalCount += point_greater;
+                                mismatch = true;
+                            }
+                        }
+                        break;
+                    }
                 }
-                }
-                break;
-                case '}':
-                {
-                if(closeBraceFromStack == '{')
-                    printf("properly closed\n");
-                else
-                {
-                    printf("not proper: }\n");
-                    totalCount += point_flower;
-                }
-                }
-                break;
-                case ')':
-                {
-                if(closeBraceFromStack == '(')
-                    printf("properly closed\n");
-                else
-                {
-                    printf("not proper: )\n");
-                    totalCount += point_curve;
-                }
-                }
-                break;
-                case '>':
-                {
-                if(closeBraceFromStack == '<')
-                    printf("properly closed\n");
-                else
-                {
-                    printf("not proper: >\n");
-                    totalCount += point_greater;
-                }
-                }
-                break;
             }
-        }
-        scanf("%c",&cEachChar);
+            scanf("%c",&cEachChar);
         }
         printf("total points till now: %d\n", totalCount);
     }
