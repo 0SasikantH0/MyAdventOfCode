@@ -7,6 +7,11 @@ int push(char openBrace);
 char pop();
 void show();
 
+void bubbleSort(long int arr[], int n);
+void printArray(long int arr[], int size);
+void swap(long int *xp, long int *yp);
+
+
 int main()
 {
     char cEachChar;
@@ -15,11 +20,11 @@ int main()
 
     int lineCount = 0;
     int totalCount = 0;
-    int totalOpenCount = 0;
+    long int totalOpenCount = 0;
     int point_curve = 3, point_square = 57, point_flower = 1197, point_greater = 25137;
     int point_curve_2 = 1, point_square_2 = 2, point_flower_2 = 3, point_greater_2 = 4;
 
-    int pointArray[100];
+    long int pointArray[100];
 
     bool mismatch = false;
 
@@ -35,7 +40,6 @@ int main()
             break;
         }
         mismatch = false;
-        lineCount = 0;
         top = -1;
         while (cEachChar != '\n')
         {
@@ -152,14 +156,54 @@ int main()
                 }
                 openBraceFromStack = pop();
             }
-            printf("total: %d", totalOpenCount);
-            pointArray[lineCount] = totalOpenCount;
-            lineCount++;
+            printf("total: %ld", totalOpenCount);
+            if(totalOpenCount != 0)
+            {
+                pointArray[lineCount] = totalOpenCount;
+                lineCount++;
+            }
         }
     }while(true);
+    printf("incomplete count: %d\n", lineCount);
+    if(lineCount > 0)
+    {
+        bubbleSort(pointArray, lineCount);
+        printArray(pointArray, lineCount);
+        printf("middle value is: %ld\n", pointArray[lineCount/2]);
+    }
+    else
+    {
+        printf("No incomplete lines\n");
+    }
     //show();
-    
+
     return 0;
+}
+
+
+// sortings
+void swap(long int *xp, long int *yp)
+{
+    long int temp = *xp;
+    *xp = *yp;
+    *yp = temp;
+}
+  
+void bubbleSort(long int arr[], int n)
+{
+   int i, j;
+   for (i = 0; i < n-1; i++)      
+       for (j = 0; j < n-i-1; j++) 
+           if (arr[j] > arr[j+1])
+              swap(&arr[j], &arr[j+1]);
+}
+
+void printArray(long int arr[], int size)
+{
+    int i;
+    for (i=0; i < size; i++)
+        printf("%ld ", arr[i]);
+    printf("\n");
 }
 
 //Stack functions
